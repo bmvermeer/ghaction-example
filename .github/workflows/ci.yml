@@ -39,7 +39,7 @@ jobs:
         with:
           command: code test
 
-    opensource-security:
+    opensource-monitor:
       needs: [build, opensource-security, code-security]
       runs-on: ubuntu-latest
       steps:
