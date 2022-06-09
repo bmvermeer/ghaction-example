@@ -14,9 +14,9 @@ public class MyController {
         var greeting = "Hello ";
         var wave = "👋";
 
-        if (name != null) {
-            return greeting + name + " " + wave;
-        }
+//        if (name != null) {
+//            return greeting + name + " " + wave;
+//        }
 
         return greeting + wave;
     }
