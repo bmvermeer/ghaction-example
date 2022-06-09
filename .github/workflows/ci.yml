@@ -19,8 +19,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-  sca:
-    needs: build
+  opensource-security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -29,7 +28,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  sca2:
+  code-security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -37,6 +36,8 @@ jobs:
         uses: snyk/actions/maven@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code
 
 
 
