@@ -40,7 +40,7 @@ jobs:
           command: code test
 
   opensource-monitor:
-    needs: [build, opensource-security, code-security]
+    needs: [opensource-security, code-security]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
