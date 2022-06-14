@@ -39,17 +39,32 @@ jobs:
         with:
           command: code test
 
-  opensource-monitor:
-    needs: [opensource-security, code-security]
+#  opensource-monitor:
+#    needs: [opensource-security, code-security]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@master
+#      - name: Run Snyk to check for vulnerabilities
+#        uses: snyk/actions/maven@master
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#        with:
+#          command: monitor
+
+#---------------- release
+  release:
+    needs: [opensource-security, code-security, build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
         with:
-          command: monitor
+          java-version: 17
+      - name: Publish JAR
+        run: mvn -B release:prepare release:perform
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 
 
