@@ -9,7 +9,7 @@
     </parent>
     <groupId>nl.brianvermeer.snyk</groupId>
     <artifactId>ghaction-example</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>ghaction-example</name>
     <description>ghaction-example</description>
     <properties>
@@ -50,7 +50,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/bmvermeer/ghaction-example.git</developerConnection>
-      <tag>v0.0.3</tag>
+      <tag>HEAD</tag>
   </scm>
     <distributionManagement>
         <repository>
