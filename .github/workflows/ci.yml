@@ -39,18 +39,6 @@ jobs:
         with:
           command: code test
 
-#  opensource-monitor:
-#    needs: [opensource-security, code-security]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@master
-#      - name: Run Snyk to check for vulnerabilities
-#        uses: snyk/actions/maven@master
-#        env:
-#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#        with:
-#          command: monitor
-
 #---------------- release
   release:
     needs: [opensource-security, code-security, build]
@@ -66,9 +54,21 @@ jobs:
           git config user.email "ghactions@brianvermeer.nl"
           git config user.name "GitHub Actions"
       - name: Publish JAR
-        run: mvn -B release:prepare release:perform
+        run: mvn -B release:prepare release:perform -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  opensource-monitor:
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
 
 
 
